@@ -44,7 +44,18 @@ class General:
                 os.remove(self.download_loc)
                 Logger.warning(
                     "md5 mismatches, redownloading now ....")
-            loc_md5 = download_file(self.dl_link, self.download_loc)
+
+            # use curl or wget instead of the Python download function
+            if "sourceforge.net" in self.dl_link:
+                os.system(f"curl -L -o {self.download_loc} \"{self.dl_link}\"")
+            else:
+                loc_md5 = download_file(self.dl_link, self.download_loc)
+
+            # Calculate MD5 after download
+            if os.path.isfile(self.download_loc):
+                with open(self.download_loc, "rb") as f:
+                    bytes = f.read()
+                    loc_md5 = hashlib.md5(bytes).hexdigest()
 
     def remove(self):
         for f in self.files:

@@ -33,9 +33,9 @@ def get_data_dir():
 # execute on host
 def run(args: list, env: Optional[str] = None, ignore: Optional[str] = None):
     result = subprocess.run(
-        args=args, 
-        env=env, 
-        stdout=subprocess.PIPE, 
+        args=args,
+        env=env,
+        stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
 
